@@ -5,6 +5,10 @@ const app = express()
 const mongoose = require('mongoose')
 const path = require('path')
 
+const connectDB = require('./config/dbConn')
+
+connectDB()
+
 app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/root'))
@@ -18,6 +22,15 @@ app.all(/.*/, (req, res) => {
         res.type('txt').send('404 Not Found')
     }
 })
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+
+mongoose.connection.once('open', () =>  {
+    console.log('Connected to MongoDB')
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`)
+    })
+})
+
+mongoose.connection.on('error', err => {
+    console.log(err)
+//    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
 })
