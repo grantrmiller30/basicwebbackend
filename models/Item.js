@@ -6,7 +6,7 @@ const itemSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    itemName: {
+    name: {
         type: String,
         required: true
     },
