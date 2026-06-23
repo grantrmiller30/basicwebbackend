@@ -11,8 +11,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "date-fns": "^4.4.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mongoose": "^9.7.0"
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^9.7.0",
+    "uuid": "^14.0.1"
   }
 }

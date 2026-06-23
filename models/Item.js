@@ -15,7 +15,9 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     quantity: {
-        type: Int32,
+        type: Number,
         required: true
     }
 })
+
+module.exports = mongoose.model('Item', itemSchema)

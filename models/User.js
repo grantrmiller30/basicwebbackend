@@ -5,11 +5,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    firstName: {
+    firstname: {
         type: String,
         required: true
     },
-    lastName: {
+    lastname: {
         type: String,
         required: true
     },
@@ -18,3 +18,5 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 })
+
+module.exports = mongoose.model('User', userSchema)
