@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 const userSchema = new mongoose.Schema({
     password: {
@@ -17,6 +18,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+})
+
+userSchema.plugin(AutoIncrement, {
+    inc_field: 'id',
+    id: 'userid',
+    start_seq: 1
 })
 
 module.exports = mongoose.model('User', userSchema)

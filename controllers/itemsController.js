@@ -10,12 +10,7 @@ const getAllItems = asyncHandler(async (req, res) => {
     if(!items?.length) {
         return res.status(400).json({ message: "No Items found"})
     }
-    const ItemsWithUser = await Promise.all(items.map(async (item) => {
-        const user = await User.findById(item.userId).lean().exec()
-        return { ...item, username: user.username}
-    }))
-
-    res.json(ItemsWithUser)
+    res.json(items)
 })
 
 // @desc Create new item
@@ -33,7 +28,7 @@ const createNewItem = asyncHandler(async (req, res) => {
      if(quantity < 0) {
         return res.status(400).json({ message: 'Quantity must not be negative'})
     }
-    const userFound = await User.findById(userId).lean().exec()
+    const userFound = await User.findOne({ id: userId }).lean().exec()
     if(!userFound) {
         return res.status(400).json({ message: 'User not found'})
     }

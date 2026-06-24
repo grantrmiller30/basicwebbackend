@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 const itemSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         required: true,
         ref: 'User'
     },
@@ -17,7 +18,13 @@ const itemSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         required: true
-    }
+    },
+})
+
+itemSchema.plugin(AutoIncrement, {
+    inc_field: 'id',
+    id: 'itemid',
+    start_seq: 1
 })
 
 module.exports = mongoose.model('Item', itemSchema)
