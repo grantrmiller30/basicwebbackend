@@ -4,14 +4,18 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const path = require('path')
+const cors = require('cors')
 
 const connectDB = require('./config/dbConn')
 const { logger, logEvent } = require('./middleware/logger')
 const errorHandler = require('./middleware/errorHandler')
+const corsOptions = require('./config/corsOptions')
 
 connectDB()
 
 app.use(logger)
+
+app.use(cors(corsOptions))
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
