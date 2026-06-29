@@ -22,10 +22,7 @@ const createNewItem = asyncHandler(async (req, res) => {
     if(!name || !userId ||  !description) {
         return res.status(400).json({ message: 'Name, userId, and description are required'})
     }
-    if(!quantity) {
-        quantity = 0
-    }
-     if(quantity < 0) {
+    if(quantity < 0) {
         return res.status(400).json({ message: 'Quantity must not be negative'})
     }
     const userFound = await User.findOne({ id: userId }).lean().exec()
@@ -33,7 +30,7 @@ const createNewItem = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'User not found'})
     }
 
-    const itemObject = { userId, name, description, quantity}
+    const itemObject = { userId, name, description, quantity: quantity ?? 0 }
     const item = await Item.create(itemObject)
     if(item) {
         res.status(201).json({message: `Item ${item.name} created`})
