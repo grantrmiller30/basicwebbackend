@@ -5,6 +5,7 @@ const app = express()
 const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
 
 const connectDB = require('./config/dbConn')
 const { logger, logEvent } = require('./middleware/logger')
@@ -20,6 +21,8 @@ app.use(cors(corsOptions))
 app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use(express.json())
+
+// app.use(cookieParser)
 
 app.use('/', require('./routes/root'))
 app.use('/users', require('./routes/userRoutes'))

@@ -29,7 +29,7 @@ const login = asyncHandler(async (req, res) => {
         "userId" : foundUser.id
     }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' })
     
-    res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 })
+    res.cookie('jwt', refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', maxAge: 24 * 60 * 60 * 1000 })
     res.json({ accessToken })
 
 })
