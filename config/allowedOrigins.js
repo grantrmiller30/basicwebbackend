@@ -1,5 +1,5 @@
 const  allowedOrigins = [
-    'https://grantrmiller30.github.io/inventorymgmtfrontend'
+    'https://grantrmiller30.github.io'
 ]
 
 module.exports = allowedOrigins
